@@ -1,7 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import useFetch from 'hooks/useFetch';
+
+
 
 const Auth = ({match}) => {
     const isLogin = match.path === '/login'
@@ -11,10 +13,10 @@ const Auth = ({match}) => {
     const apiUrl = isLogin ? '/users/login' : '/users'
 
     const [username, setUsername] = useState({})
+    const [isSuccessSubmit, setIsSuccessSubmit] = useState(false)
     const [email, setEmail] = useState({})
     const [password, setPassword] = useState({})
     const [{responce, isLoading, error}, doFetch] = useFetch(apiUrl)
-
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -25,6 +27,19 @@ const Auth = ({match}) => {
                 user
             }
         })
+    }
+
+    useEffect(() => {
+        if (!responce) {
+            return
+        }
+        localStorage.setItem('token', responce.data.user.token)
+        setIsSuccessSubmit(true)
+
+    }, [responce])
+
+    if (isSuccessSubmit) {
+        return <Redirect to="/"/>
     }
 
     return (
