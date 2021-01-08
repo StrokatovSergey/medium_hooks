@@ -15,10 +15,9 @@ const Auth = ({match}) => {
     const [isSuccessSubmit, setIsSuccessSubmit] = useState(false)
     const [email, setEmail] = useState({})
     const [password, setPassword] = useState({})
-    const [{responce, isLoading, error}, doFetch] = useFetch(apiUrl)
-    const [token, setToken] = useLocalStorage('token')
+    const [{responce, isLoading}, doFetch] = useFetch(apiUrl)
+    const [, setToken] = useLocalStorage('token')
 
-    console.log('token', token);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -38,7 +37,7 @@ const Auth = ({match}) => {
         setToken(responce.data.user.token)
         setIsSuccessSubmit(true)
 
-    }, [responce])
+    }, [responce, setToken])
 
     if (isSuccessSubmit) {
         return <Redirect to="/"/>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react';
 
-export default url => {
+const useFetch = url => {
     const BASE_URL = 'https://conduit.productionready.io/api'
     const [responce, setResponce] = useState(false)
     const [isLoading, setisLoading] = useState(null)
@@ -26,7 +26,10 @@ export default url => {
             console.log('my catched error', err);
             setisLoading(false)
         })
-    }, [isLoading] )
+    }, [isLoading, url, options] )
 
     return [{responce, isLoading, error}, doFetch]
 }
+
+
+export default useFetch
