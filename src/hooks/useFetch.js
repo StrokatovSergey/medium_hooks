@@ -22,7 +22,7 @@ const useFetch = url => {
             console.log('success', res);
             setisLoading(false)
         }).catch(err => {
-            setError(err)
+            setError(err.response.data)
             console.log('my catched error', err);
             setisLoading(false)
         })
