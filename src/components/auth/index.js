@@ -8,7 +8,7 @@ import BackendErrorMessages from '../backend-error-messages/BackendErrorMessages
 
 
 const Auth = ({match}) => {
-    const [ , setCurrentUserState ] = useContext(CurrentUserContext)
+    const [ stateCurrentUserState, setCurrentUserState ] = useContext(CurrentUserContext)
     const isLogin = match.path === '/login'
     const pageTitle = isLogin ? 'Sign In' : 'Sign Up'
     const descriptionLink = isLogin ? '/register' : '/login'
@@ -21,7 +21,7 @@ const Auth = ({match}) => {
     const [password, setPassword] = useState({})
     const [{responce, isLoading, error}, doFetch] = useFetch(apiUrl)
     const [, setToken] = useLocalStorage('token')
-
+    console.log('stateCurrentUserState', stateCurrentUserState);
 
     const handleSubmit = (e) => {
         e.preventDefault()
