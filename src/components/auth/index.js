@@ -38,7 +38,7 @@ const Auth = ({match}) => {
         if (!responce) {
             return
         }
-        setToken(responce.data.user.token)
+        setToken(responce.user.token)
         setIsSuccessSubmit(true)
         setCurrentUserState(state => ({
             ...state,

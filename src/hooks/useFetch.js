@@ -4,7 +4,7 @@ import useLocalStorage from './useLocalStorage';
 
 const useFetch = url => {
     const BASE_URL = 'https://conduit.productionready.io/api'
-    const [responce, setResponce] = useState(false)
+    const [response, setResponce] = useState(false)
     const [isLoading, setisLoading] = useState(null)
     const [error, setError] = useState(null)
     const [options, setOptions] = useState({})
@@ -16,6 +16,9 @@ const useFetch = url => {
     }
 
     useEffect(() => {
+        if (!isLoading) {
+            return
+        }
         const requestOptions = {
             ...options,
             ...{
@@ -23,14 +26,9 @@ const useFetch = url => {
                     authorization: token ? `Token ${token}` : ``
                 }
             }
-
-        }
-
-        if (!isLoading) {
-            return
         }
         axios(BASE_URL+url, requestOptions ).then(res => {
-            setResponce(res)
+            setResponce(res.data)
             console.log('success', res);
             setisLoading(false)
         }).catch(err => {
@@ -38,9 +36,9 @@ const useFetch = url => {
             console.log('my catched error', err);
             setisLoading(false)
         })
-    }, [isLoading, url, options] )
+    }, [isLoading, url, options, token] )
 
-    return [{responce, isLoading, error}, doFetch]
+    return [{response, isLoading, error}, doFetch]
 }
 
 
