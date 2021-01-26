@@ -1,9 +1,10 @@
-import {useEffect, useContext } from 'react';
+import {useEffect,useContext } from 'react';
 import useFetch from '../../hooks/useFetch';
-import {CurrentUserContext} from '../../context/currentUser';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import {CurrentUserContext} from '../../context/currentUser';
 
 const CurrentUserChecker = ({children}) => {
+
     const [token] = useLocalStorage('token')
     const [{response}, doFetch] = useFetch('/user')
     const [, setCurrentUserContext] = useContext(CurrentUserContext)
